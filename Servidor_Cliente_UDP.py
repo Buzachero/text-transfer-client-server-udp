@@ -8,9 +8,9 @@ from constants import *
 
 def validar_mensagem(mensagem):
     is_mensagem_valida = True
-    if len(mensagem) < len(AUTHENTICATION_KEY):
+    if len(mensagem) < len(AUTHORIZATION_KEY):
         is_mensagem_valida = False
-    if not mensagem.startswith(AUTHENTICATION_KEY):
+    if not mensagem.startswith(AUTHORIZATION_KEY):
         is_mensagem_valida = False
         print(MetodosData.prefixar_com_data_hora_atual(f'Chave inválida! Envio de dados pelo host {host} não autorizado!'))
     return is_mensagem_valida
@@ -23,9 +23,9 @@ def validar_host_origem(host):
     return is_host_valido
 
 def formatar_mensagem_sem_chave(mensagem):
-    if len(mensagem) < len(AUTHENTICATION_KEY):
+    if len(mensagem) < len(AUTHORIZATION_KEY):
         return mensagem
-    return mensagem[len(AUTHENTICATION_KEY):len(mensagem)]
+    return mensagem[len(AUTHORIZATION_KEY):len(mensagem)]
 
 def transferir_mensagem_cliente(sock):
     try:

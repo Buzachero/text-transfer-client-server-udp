@@ -38,12 +38,12 @@ def transferir_mensagem_servidor(client_sock, server_host, server_port):
     while int(opcao) != 1 and int(opcao) != 2:
         opcao = apresentar_menu()
 
-    MetodosSocket.enviar_texto(AUTHENTICATION_KEY + str(opcao), client_sock, (server_host, server_port))
+    MetodosSocket.enviar_texto(AUTHORIZATION_KEY + str(opcao), client_sock, (server_host, server_port))
     print('Opcao {} enviada para {} ...'.format(opcao, server_host_port))
     if int(opcao) == 1:
         texto_arquivo = MetodosArquivos.ler_conteudo_arquivo(CLIENT_FILE_PATH)
         print('Enviando texto para {} ...'.format(server_host_port), end=' ')
-        MetodosSocket.enviar_texto(AUTHENTICATION_KEY + texto_arquivo, client_sock, (server_host, server_port))
+        MetodosSocket.enviar_texto(AUTHORIZATION_KEY + texto_arquivo, client_sock, (server_host, server_port))
         print('Texto enviado!')
         texto_recebido = MetodosSocket.receber_texto(client_sock)
         print(texto_recebido)
@@ -53,7 +53,7 @@ def transferir_mensagem_servidor(client_sock, server_host, server_port):
         sucesso = MetodosArquivos.escrever_dados_arquivo(CLIENT_FILE_PATH, texto_recebido)
         mensagem = 'Sucesso na gravação do texto no arquivo do cliente!' if sucesso \
             else 'Houve alguma falha na gravação do texto no arquivo do cliente!'
-        MetodosSocket.enviar_texto(AUTHENTICATION_KEY + mensagem, client_sock, (server_host, server_port))
+        MetodosSocket.enviar_texto(AUTHORIZATION_KEY + mensagem, client_sock, (server_host, server_port))
 
 
 if __name__ == '__main__':
